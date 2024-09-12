@@ -23,3 +23,8 @@ variable "db_subnet_group" {
   description = "The subnet group for the RDS instance"
   type        = string
 }
+
+variable "private_subnet_ids" {
+  description = "List of private subnet IDs for the RDS instance"
+  type        = list(string)
+}

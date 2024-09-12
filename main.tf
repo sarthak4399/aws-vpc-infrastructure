@@ -20,6 +20,7 @@ module "ec2" {
 
 module "rds" {
   source = "./modules/rds"
+  private_subnet_ids = module.vpc.private_subnet_ids
   db_name             = "mydb"
   db_username         = "admin"
   db_password         = "password"
