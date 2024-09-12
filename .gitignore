@@ -1,0 +1,21 @@
+# Terraform files
+*.tfstate
+*.tfstate.backup
+*.tfvars       # Terraform variables files often contain sensitive data (e.g., access keys)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Crash logs
+crash.log
+
+# Lock files
+.terraform.lock.hcl
+
+# Terraform directories
+.terraform/
+
+# Sensitive environment files
+.env
+.env.*
