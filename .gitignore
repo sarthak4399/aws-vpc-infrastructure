@@ -14,7 +14,7 @@ crash.log
 .terraform.lock.hcl
 
 # Terraform directories
-.terraform/
+.terraform
 
 # Sensitive environment files
 .env
