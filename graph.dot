@@ -1,0 +1,39 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  subgraph "cluster_module.ec2" {
+    label = "module.ec2"
+    fontname = "sans-serif"
+    "module.ec2.aws_instance.main" [label="aws_instance.main"];
+  }
+  subgraph "cluster_module.rds" {
+    label = "module.rds"
+    fontname = "sans-serif"
+    "module.rds.aws_db_instance.main" [label="aws_db_instance.main"];
+    "module.rds.aws_db_subnet_group.mydb_subnet_group" [label="aws_db_subnet_group.mydb_subnet_group"];
+  }
+  subgraph "cluster_module.security" {
+    label = "module.security"
+    fontname = "sans-serif"
+    "module.security.aws_security_group.main" [label="aws_security_group.main"];
+  }
+  subgraph "cluster_module.vpc" {
+    label = "module.vpc"
+    fontname = "sans-serif"
+    "module.vpc.aws_eip.main" [label="aws_eip.main"];
+    "module.vpc.aws_internet_gateway.main" [label="aws_internet_gateway.main"];
+    "module.vpc.aws_nat_gateway.main" [label="aws_nat_gateway.main"];
+    "module.vpc.aws_subnet.private" [label="aws_subnet.private"];
+    "module.vpc.aws_subnet.public" [label="aws_subnet.public"];
+    "module.vpc.aws_vpc.main" [label="aws_vpc.main"];
+  }
+  "module.ec2.aws_instance.main" -> "module.vpc.aws_subnet.public";
+  "module.rds.aws_db_instance.main" -> "module.rds.aws_db_subnet_group.mydb_subnet_group";
+  "module.rds.aws_db_subnet_group.mydb_subnet_group" -> "module.vpc.aws_subnet.private";
+  "module.security.aws_security_group.main" -> "module.vpc.aws_vpc.main";
+  "module.vpc.aws_internet_gateway.main" -> "module.vpc.aws_vpc.main";
+  "module.vpc.aws_nat_gateway.main" -> "module.vpc.aws_eip.main";
+  "module.vpc.aws_nat_gateway.main" -> "module.vpc.aws_subnet.public";
+  "module.vpc.aws_subnet.private" -> "module.vpc.aws_vpc.main";
+  "module.vpc.aws_subnet.public" -> "module.vpc.aws_vpc.main";
+}
